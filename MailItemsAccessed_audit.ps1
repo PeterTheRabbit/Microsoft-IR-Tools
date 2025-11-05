@@ -1,10 +1,17 @@
-# This PowerShell script automates auditing of email access in Microsoft Exchange Online by querying the Unified Audit Log for "MailItemsAccessed" operations (e.g., bind for direct message access, sync for folder synchronization) on specified user accounts from a CSV input. It handles pagination and retries for reliability, processes JSON audit data to extract details like timestamps, IP addresses, client info, message IDs, and folder paths, then exports results to three CSV files: a main audit summary, accessed message IDs, and synced folders. Ideal for infosec investigations into potential unauthorized email access.
+<# This PowerShell script automates auditing of email access in Microsoft Exchange Online by querying the Unified Audit Log for "MailItemsAccessed"
+operations (e.g., bind for direct message access, sync for folder synchronization) on specified user accounts from a CSV input. It handles pagination
+and retries for reliability, processes JSON audit data to extract details like timestamps, IP addresses, client info, message IDs, and folder paths,
+then exports results to three CSV files: a main audit summary, accessed message IDs, and synced folders. Ideal for infosec investigations into potential
+unauthorized email access.
+#>
 
-# Define important stuff
+# Define Paths
 $userCsvPath = "users_to_audit.csv"
 $outputPath = "emailAudit.csv"
 $outputMessageIdsPath = "emailAudit_MessageIDs.csv"
 $outputSyncedFoldersPath = "emailAudit_SyncedFolders.csv"
+
+# Define Dates
 $StartDate = "12/25/2024"
 $EndDate = Get-Date
 
@@ -154,3 +161,4 @@ $SyncedFolderRows | Export-Csv $outputSyncedFoldersPath -NoTypeInformation -Enco
 Write-Host "Exported to $outputPath"
 Write-Host "Exported to $outputMessageIdsPath"
 Write-Host "Exported to $outputSyncedFoldersPath"
+
