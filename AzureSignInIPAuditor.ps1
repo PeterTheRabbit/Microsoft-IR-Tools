@@ -1,5 +1,8 @@
 <#
-This PowerShell script connects to Microsoft Graph with audit log read permissions, loads a list of suspicious IP addresses from an input CSV ("suspicious_ips.csv"), queries Azure AD sign-in audit logs for the past 30 days (paginating results), filters for sign-ins originating from those IPs, and exports matching details (timestamp, user principal name, IP, app name, success/failure status) to an output CSV ("user_signins_from_ips.csv") for security monitoring or incident response.
+This PowerShell script connects to Microsoft Graph with audit log read permissions, loads a list of suspicious IP addresses 
+from an input CSV, queries Azure AD sign-in audit logs for the past 30 days, filters for sign-ins originating from those IPs, 
+and exports matching details (timestamp, user principal name, IP, app name, success/failure status) to an output CSV
+for incident response.
 #>
 
 # Set paths
@@ -45,4 +48,5 @@ do {
 
 # Export to CSV
 $results | Export-Csv $outputCsv -NoTypeInformation -Encoding UTF8
+
 Write-Host "Sign-in results exported to: $outputCsv"
